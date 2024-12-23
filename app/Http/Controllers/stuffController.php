@@ -11,7 +11,7 @@ class stuffController extends Controller
      */
     public function index()
     {
-        //
+        return view("employeeLayout.stuffLayout.index");
     }
 
     /**

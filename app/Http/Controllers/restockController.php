@@ -11,7 +11,7 @@ class restockController extends Controller
      */
     public function index()
     {
-        //
+    return view("employeeLayout.restockLayout.index");
     }
 
     /**
