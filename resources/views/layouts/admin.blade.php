@@ -103,7 +103,7 @@
 
                             <li class="nav-item">
                                 <a href="/home" class="nav-link">
-                                    <i class="nav-icon fas fa-th"></i>
+                                    <i class="nav-icon fas fa-landmark"></i>
                                     <p>
                                         dashboard
                                     </p>
@@ -112,7 +112,7 @@
 
                             <li class="nav-item">
                                 <a href="/sales" class="nav-link">
-                                    <i class="nav-icon fas fa-th"></i>
+                                    <i class="nav-icon fas fa-tags"></i>
                                     <p>
                                         Penjualan
                                     </p>
@@ -120,7 +120,7 @@
                             </li>
                             <li class="nav-item">
                                 <a href="/stuffs" class="nav-link">
-                                    <i class="nav-icon fas fa-th"></i>
+                                    <i class="nav-icon fas fa-gift"></i>
                                     <p>
                                         barang
                                     </p>
@@ -128,7 +128,7 @@
                             </li>
                             <li class="nav-item">
                                 <a href="/restocks" class="nav-link">
-                                    <i class="nav-icon fas fa-th"></i>
+                                    <i class="nav-icon fas fa-store"></i>
                                     <p>
                                         Restock Barang
                                     </p>
@@ -136,7 +136,7 @@
                             </li>
                             <li class="nav-item">
                                 <a href="/users" class="nav-link">
-                                    <i class="nav-icon fas fa-th"></i>
+                                    <i class="nav-icon fas fa-address-book"></i>
                                     <p>
                                         Karyawan
                                     </p>
