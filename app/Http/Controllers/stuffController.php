@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\stuff;
+use App\Models\category;
+use App\Models\discount;
+use App\Models\tax;
 class stuffController extends Controller
 {
     /**
@@ -11,7 +14,8 @@ class stuffController extends Controller
      */
     public function index()
     {
-        return view("employeeLayout.stuffLayout.index");
+        $categories = category::all();
+        return view("employeeLayout.stuffLayout.index", compact("categories"));
     }
 
     /**
@@ -19,7 +23,7 @@ class stuffController extends Controller
      */
     public function create()
     {
-        //
+        return view("employeeLayout.stuffLayout.create");
     }
 
     /**
@@ -27,7 +31,7 @@ class stuffController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // 
     }
 
     /**
@@ -43,7 +47,7 @@ class stuffController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        // 
     }
 
     /**

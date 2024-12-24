@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\category;
 use Illuminate\Http\Request;
-
+use App\Models\discount;
 class categoryController extends Controller
 {
     /**
@@ -11,7 +12,8 @@ class categoryController extends Controller
      */
     public function index()
     {
-        //
+        return view("employeeLayout.stuffLayout.category.create");
+        // return view('home');
     }
 
     /**
@@ -27,7 +29,13 @@ class categoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'category_name' => 'required',
+        ]);
+        $input = $request->all();
+        category::create($input);
+
+        return redirect()->route('stuffs.index')->with('success','berhasil menginputkan kategori');
     }
 
     /**
@@ -43,7 +51,10 @@ class categoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        
+        $category = category::find($id);
+        return view('employeeLayout.stuffLayout.category.edit', compact('category'));
+
     }
 
     /**
@@ -51,7 +62,15 @@ class categoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $this->validate($request,
+            [
+                'category_name'=> 'required',
+            ]
+            );
+        // return $request;
+        $category = category::find($id);
+        $category->update($request->all());
+        return redirect()->route('stuffs.index');
     }
 
     /**
@@ -59,6 +78,8 @@ class categoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $category = category::find($id);
+        $category->delete();
+        return redirect()->route('stuffs.index');
     }
 }
