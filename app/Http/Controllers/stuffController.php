@@ -15,7 +15,9 @@ class stuffController extends Controller
     public function index()
     {
         $categories = category::all();
-        return view("employeeLayout.stuffLayout.index", compact("categories"));
+        $discounts = discount::all();
+        $taxes = tax::all();
+        return view("employeeLayout.stuffLayout.index", compact("categories",'taxes','discounts'));
     }
 
     /**

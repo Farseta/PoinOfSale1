@@ -130,7 +130,7 @@
                         <h3 class="card-title">Pajak</h3>
 
                         <div class="card-tools">
-                           <a href="#" class="btn btn-success">Tambah</a>
+                           <a href="{{url('taxes/create')}}" class="btn btn-success">Tambah</a>
                         </div>
                     </div>
                     <!-- /.card-header -->
@@ -138,53 +138,37 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th style="width: 10px">#</th>
-                                    <th>Task</th>
-                                    <th>Progress</th>
-                                    <th style="width: 40px">Label</th>
+                                    <th style="width: 10px">No</th>
+                                    <th>Nama Pajak</th>
+                                    <th>nilai</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($taxes as $key=>$tax)
+                                
                                 <tr>
-                                    <td>1.</td>
-                                    <td>Update software</td>
+                                    <td>{{$key+1}}</td>
                                     <td>
-                                        <div class="progress progress-xs">
-                                            <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                                        </div>
+                                        {{$tax->tax_name}}
                                     </td>
-                                    <td><span class="badge bg-danger">55%</span></td>
-                                </tr>
-                                <tr>
-                                    <td>2.</td>
-                                    <td>Clean database</td>
+                                    
                                     <td>
-                                        <div class="progress progress-xs">
-                                            <div class="progress-bar bg-warning" style="width: 70%"></div>
-                                        </div>
+                                        {{$tax->value}}
                                     </td>
-                                    <td><span class="badge bg-warning">70%</span></td>
-                                </tr>
-                                <tr>
-                                    <td>3.</td>
-                                    <td>Cron job running</td>
                                     <td>
-                                        <div class="progress progress-xs progress-striped active">
-                                            <div class="progress-bar bg-primary" style="width: 30%"></div>
-                                        </div>
+                                        <a href="{{url('taxes/'.$tax->id.'/edit')}}" class="btn btn-primary">Edit</a>
+                                        <form action="{{ url('taxes', ['id' => $tax->id]) }}"
+                                            method="POST">
+                                            <input class="btn btn-danger btn-sm" type="submit" value="Delete"
+                                                onclick="return confirm ('are you sure?')">
+                                            @method('delete')
+                                            @csrf
+                                        </form>
                                     </td>
-                                    <td><span class="badge bg-primary">30%</span></td>
                                 </tr>
-                                <tr>
-                                    <td>4.</td>
-                                    <td>Fix and squish bugs</td>
-                                    <td>
-                                        <div class="progress progress-xs progress-striped active">
-                                            <div class="progress-bar bg-success" style="width: 90%"></div>
-                                        </div>
-                                    </td>
-                                    <td><span class="badge bg-success">90%</span></td>
-                                </tr>
+                                
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -208,7 +192,7 @@
                         <h3 class="card-title">Discount</h3>
 
                         <div class="card-tools">
-                            <a href="#" class="btn btn-success">Tambah</a>
+                            <a href="{{url('discounts/create')}}" class="btn btn-success">Tambah</a>
                         </div>
                     </div>
                     <!-- /.card-header -->
@@ -216,53 +200,41 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th style="width: 10px">#</th>
-                                    <th>Task</th>
-                                    <th>Progress</th>
-                                    <th style="width: 40px">Label</th>
+                                    <th style="width: 10px">No</th>
+                                    <th>Nama Diskon</th>
+                                    <th>Tipe Diskon</th>
+                                    <th >Nilai Diskon</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($discounts as $key=> $discount)
                                 <tr>
-                                    <td>1.</td>
-                                    <td>Update software</td>
+                                    <td>{{$key +1}}</td>
                                     <td>
-                                        <div class="progress progress-xs">
-                                            <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                                        </div>
+                                        {{$discount->discount_name}}
                                     </td>
-                                    <td><span class="badge bg-danger">55%</span></td>
-                                </tr>
-                                <tr>
-                                    <td>2.</td>
-                                    <td>Clean database</td>
                                     <td>
-                                        <div class="progress progress-xs">
-                                            <div class="progress-bar bg-warning" style="width: 70%"></div>
-                                        </div>
+                                        {{$discount->discount_type}}
                                     </td>
-                                    <td><span class="badge bg-warning">70%</span></td>
-                                </tr>
-                                <tr>
-                                    <td>3.</td>
-                                    <td>Cron job running</td>
                                     <td>
-                                        <div class="progress progress-xs progress-striped active">
-                                            <div class="progress-bar bg-primary" style="width: 30%"></div>
-                                        </div>
+                                        {{$discount->discount_value}}
                                     </td>
-                                    <td><span class="badge bg-primary">30%</span></td>
-                                </tr>
-                                <tr>
-                                    <td>4.</td>
-                                    <td>Fix and squish bugs</td>
                                     <td>
-                                        <div class="progress progress-xs progress-striped active">
-                                            <div class="progress-bar bg-success" style="width: 90%"></div>
-                                        </div>
+                                        <a href="{{url('discounts/'.$discount->id.'/edit')}}" class="btn btn-primary">Edit</a>
+
+                                        <form action="{{ url('discounts', ['id' => $discount->id]) }}"
+                                            method="POST">
+                                            <input class="btn btn-danger btn-sm" type="submit" value="Delete"
+                                                onclick="return confirm ('are you sure?')">
+                                            @method('delete')
+                                            @csrf
+                                        </form>
+
                                     </td>
-                                    <td><span class="badge bg-success">90%</span></td>
-                                </tr>
+                                </tr>    
+                                @endforeach
+                                
                             </tbody>
                         </table>
                     </div>

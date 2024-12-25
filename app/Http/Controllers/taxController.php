@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\tax;
 use Illuminate\Http\Request;
 
 class taxController extends Controller
@@ -19,7 +20,7 @@ class taxController extends Controller
      */
     public function create()
     {
-        //
+        return view("employeeLayout.stuffLayout.tax.create");
     }
 
     /**
@@ -27,7 +28,13 @@ class taxController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'tax_name'=>'required',
+            'value'=>'required',
+        ]);
+        $input = $request->all();
+        tax::create($input);
+         return redirect()->route('stuffs.index')->with('success','berhasil menginputkan kategori');
     }
 
     /**
@@ -43,7 +50,8 @@ class taxController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $tax = tax::findOrFail($id);
+        return view('employeeLayout.stuffLayout.tax.edit', compact('tax'));
     }
 
     /**
@@ -51,7 +59,14 @@ class taxController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $this->validate($request,[
+
+            'tax_name' =>'required',
+            'value'=> 'required',
+        ]);
+        $input = $request->all();
+        tax::findOrFail($id)->update($input);
+        return redirect()->route('stuffs.index')->with('success','success');
     }
 
     /**
@@ -59,6 +74,8 @@ class taxController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $tax = tax::findOrFail($id);
+        $tax->delete();
+        return redirect()->route('stuffs.index')->with('success','success');
     }
 }
