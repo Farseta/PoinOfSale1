@@ -11,13 +11,13 @@ class stuff extends Model
     protected $fillable = ['category_id','discount_id','tax_id','name_stuff','stock','price'];
 
     public function category(){
-        return $this->belongsTo(category::class,'category_id','categories');
+        return $this->belongsTo(category::class,'category_id');
     }
     public function discount(){
-        return $this->belongsTo(discount::class,'discount_id','discounts');
+        return $this->belongsTo(discount::class,'discount_id');
     }
     public function tax(){
-        return $this->belongsTo(tax::class,'tax_id','taxes');
+        return $this->belongsTo(tax::class,'tax_id');
     }
 
     public function sales_details(){

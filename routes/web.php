@@ -24,13 +24,20 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/users',[userController::class,'index']);
     Route::get('/restocks',[restockController::class,'index']);
     Route::get('/sales',[saleController::class,'index']);
+
+    // stuff routes
     Route::get('/stuffs',[stuffController::class,'index'])->name('stuffs.index');
+    Route::get('/stuffs/create',[stuffController::class,'create']);
+    Route::post('/stuffs/store',[stuffController::class,'store']);
+    Route::get('/stuffs/{id}/edit',[stuffController::class,'edit']);
+    Route::put('/stuffs/{id}',[stuffController::class,'update']);
+    Route::delete('/stuffs/{id}',[stuffController::class,'destroy']);
 
     // category routes
     Route::get('/categories/create',[categoryController::class,'index']);
     Route::post('/categories/store',[categoryController::class,'store']);
     Route::get('/categories/{id}/edit',[categoryController::class,'edit']);
-    Route::put('/categories/{id}',[categoryController::class,'update'])->name('category.update');
+    Route::put('/categories/{id}',[categoryController::class,'update']);
     Route::delete('/categories/{id}',[categoryController::class,'destroy']);
 
 
@@ -38,7 +45,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/discounts/create',[discountController::class,'create']);
     Route::post('/discounts/store',[discountController::class,'store']);
     Route::get('/discounts/{id}/edit',[discountController::class,'edit']);
-    Route::put('/discounts/{id}',[discountController::class,'update'])->name('discount.update');
+    Route::put('/discounts/{id}',[discountController::class,'update']);
     Route::delete('/discounts/{id}',[discountController::class,'destroy']);
 
     // tax routes
@@ -47,6 +54,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/taxes/{id}/edit',[taxController::class,'edit']);
     Route::put('/taxes/{id}',[taxController::class,'update']);
     Route::delete('/taxes/{id}',[taxController::class,'destroy']);
+
+    
 //     // Route::resource('roles', RoleController::class);
 //     // Route::resource('users', UserController::class);
 //     // Route::resource('products', ProductController::class);
