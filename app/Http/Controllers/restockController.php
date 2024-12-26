@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\stuff;
+use App\Models\restock;
+use App\Models\restock_detail;
+use Egulias\EmailValidator\Result\Reason\DetailedReason;
 
 class restockController extends Controller
 {
@@ -19,7 +23,10 @@ class restockController extends Controller
      */
     public function create()
     {
-        //
+        $stuffs = stuff::all();
+        $restocks = restock::with("user")->get();
+        $detail_restocks = restock_detail::with("stuff")->get();
+        return view("employeeLayout.restockLayout.create",compact('stuffs'));
     }
 
     /**
@@ -43,7 +50,7 @@ class restockController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('employeeLayout.restockLayout.restock_detail.edit');
     }
 
     /**

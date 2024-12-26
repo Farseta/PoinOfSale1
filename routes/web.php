@@ -3,10 +3,12 @@
 use App\Http\Controllers\categoryController;
 use App\Http\Controllers\discountController;
 use App\Http\Controllers\restockController;
+use App\Http\Controllers\restockDetailController;
 use App\Http\Controllers\saleController;
 use App\Http\Controllers\stuffController;
 use App\Http\Controllers\taxController;
 use App\Http\Controllers\userController;
+use App\Models\restock_detail;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -21,8 +23,22 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth']], function() {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    
+    // user routes
     Route::get('/users',[userController::class,'index']);
+    
+    // restock routes
     Route::get('/restocks',[restockController::class,'index']);
+    Route::get('/restocks/create',[restockController::class,'create'])->name('restocks.create');
+    Route::post('/restocks/store',[restockController::class,'store']);
+    Route::get('/restocks/{id}/edit',[restockController::class,'edit']);
+    Route::put('/restocks/{id}',[restockController::class,'update']);
+    Route::delete('/restock/{id}',[restockController::class,'delete']);
+
+    // restock_details routes
+    Route::get('/restock_details/{id}/create',[restockDetailController::class,'create']);
+    Route::get('/restock_details/{id}/edit',[restockDetailController::class,'edit']);
+    // sale routes
     Route::get('/sales',[saleController::class,'index']);
 
     // stuff routes

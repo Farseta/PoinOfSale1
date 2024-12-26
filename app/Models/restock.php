@@ -14,4 +14,7 @@ class restock extends Model
     public function  user(){
         return $this->belongsTo(user::class,'user_id','users');
     }
+    public function detail_restocks(){
+        return $this->hasMany(restock_detail::class,'restock_id','id');
+    }
 }
