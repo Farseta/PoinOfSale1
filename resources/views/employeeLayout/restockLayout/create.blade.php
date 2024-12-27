@@ -108,29 +108,59 @@
 
 @section('javascript')
     <script>
-        function getData() {
-            var baseUrl = '{{ url('') }}'
-            var stuffArray = JSON.parse(localStorage.getItem('stuffArray')) || [];
-            var tableBody = $("#dataTable tbody")
-            tableBody.empty();
-            stuffArray.forEach(function(stuff, index) {
-                var rowNumber = index + 1
-                var row = `
-                    <tr>
+        $(document).ready(function() {
+            getData();
+
+            function getData() {
+                var baseUrl = '{{ url('') }}'
+                var stuffArray = JSON.parse(localStorage.getItem('stuffArray')) || [];
+                var tableBody = $("#dataTable tbody")
+                tableBody.empty();
+                stuffArray.forEach(function(stuff, index) {
+                    var rowNumber = index + 1
+                    var row = `
+                    <tr data-id= "${stuff.id}">
                     <td> ${rowNumber} </td>
                     <td> ${stuff.user_id} </td>
                     <td>  ${stuff.id} </td>
                     <td> ${stuff.stock_stuff}</td>
                     <td> ${stuff.price_stuff} </td>
                     <td><a href="${baseUrl}/restock_details/${stuff.id}/edit" class="btn btn-primary">Edit</a>
-                    <a href="#" class="btn btn-danger">Delete</a></td>
+                    <a href="#" class="btn btn-danger delete-btn" data-id="${stuff.id}"  >Delete</a></td>
                     </tr>
                 `;
-                tableBody.append(row);
-            });
-        }
-        $(document).ready(function() {
-            getData();
+                    tableBody.append(row);
+                });
+            }
+
+            function deleteData(id) {
+                var stuffArray = JSON.parse(localStorage.getItem('stuffArray')) || [];
+                var index = stuffArray.findIndex(stuff => stuff.id === id);
+                
+                if (index !== -1) {
+                    stuffArray.splice(index, 1);
+                    localStorage.setItem('stuffArray', JSON.stringify(stuffArray));
+                    var row =$('tr[data-id="' + id + '"]');
+                  
+                    console.log('ro delete',row);
+                    row.remove();
+                    updateTable();
+                }
+            }
+
+            function updateTable() {
+                $('#dataTable tbody tr').each(function(index) {
+                    $(this).find('td:first').text(index + 1);
+                });
+                
+            }
+
+            $(document).on('click', '.delete-btn', function(event) {
+                event.preventDefault();
+                var id = $(this).data('id');
+                deleteData(id);
+            })
+
         });
     </script>
 @endsection

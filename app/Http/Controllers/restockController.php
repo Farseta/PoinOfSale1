@@ -50,7 +50,7 @@ class restockController extends Controller
      */
     public function edit(string $id)
     {
-        return view('employeeLayout.restockLayout.restock_detail.edit');
+    //    
     }
 
     /**

@@ -47,7 +47,8 @@ class restockDetailController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $stuffs = stuff::find($id);
+        return view('employeeLayout.restockLayout.restock_detail.edit', compact("stuffs"));
     }
 
     /**
