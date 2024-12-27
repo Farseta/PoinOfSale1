@@ -24,8 +24,8 @@ class restockController extends Controller
     public function create()
     {
         $stuffs = stuff::all();
-        $restocks = restock::with("user")->get();
-        $detail_restocks = restock_detail::with("stuff")->get();
+        // $restocks = restock::with("user")->get();
+        // $detail_restocks = restock_detail::with("stuff")->get();
         return view("employeeLayout.restockLayout.create",compact('stuffs'));
     }
 
@@ -34,7 +34,28 @@ class restockController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $stuffArray = $request->input(('stuffArray'));
+        $totalPrice = $request->input(('totalPrice'));
+        $user_id = $request->input('id_user');
+        $restock =restock::create([
+            'user_id' => $user_id,
+            'cost_total' => $totalPrice,
+            'status' => 0,
+        ]);
+        foreach($stuffArray as $stuff){
+            restock_detail::create([
+                'restock_id' =>$restock->id,
+                'stuff_id' =>$stuff['id'],
+                'stuff_total'=> $stuff['stock_stuff'],
+                'cost_unit' =>$stuff['price_stuff'],
+            ]);
+            $stuffItem = stuff::find($stuff['id']);
+            if($stuffItem){
+                $stuffItem->stock+= $stuff['stock_stuff'];
+                $stuffItem->save();
+            }
+        }
+        
     }
 
     /**
@@ -67,5 +88,17 @@ class restockController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function searchItem(request $request){
+        $idstuff = $request->query('id');
+        $item = stuff::find($idstuff);
+        if($item){
+            return response()->json([
+                'stuff_name' => $item->name_stuff 
+            ]);
+        }else{
+            return response()->json(['message' => 'not found']);
+        }
     }
 }

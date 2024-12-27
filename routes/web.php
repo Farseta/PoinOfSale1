@@ -72,6 +72,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::delete('/taxes/{id}',[taxController::class,'destroy']);
 
     
+
+    // route add on
+    Route::get('/search_items',[restockController::class,'searchItem']);
+
 //     // Route::resource('roles', RoleController::class);
 //     // Route::resource('users', UserController::class);
 //     // Route::resource('products', ProductController::class);

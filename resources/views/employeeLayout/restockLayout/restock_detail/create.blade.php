@@ -43,7 +43,7 @@
         function saveData() {
             const stock_stuff = $('#stock').val();
             const price_stuff = $('#price').val();
-            const user = {{ Auth::user()->id }};
+           
             const id_stuff = {{ $stuffs->id }};
 
             var stuffArray = JSON.parse(localStorage.getItem('stuffArray')) || [];
@@ -51,7 +51,7 @@
                 id: id_stuff,
                 stock_stuff: stock_stuff,
                 price_stuff: price_stuff,
-                user_id: user
+                
             }
             var index = stuffArray.findIndex(stuff=>stuff.id === id_stuff);
             if (index === -1) {
