@@ -31,9 +31,11 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/restocks',[restockController::class,'index']);
     Route::get('/restocks/create',[restockController::class,'create'])->name('restocks.create');
     Route::post('/restocks/store',[restockController::class,'store']);
-    Route::get('/restocks/{id}/edit',[restockController::class,'edit']);
     Route::put('/restocks/{id}',[restockController::class,'update']);
     Route::delete('/restock/{id}',[restockController::class,'delete']);
+   
+    Route::get('/restocks/{restock_id}/show_detail',[restockController::class,'show_detail']);
+    Route::post('/approve_stock/{id}',[restockController::class,'approve_stack']);
 
     // restock_details routes
     Route::get('/restock_details/{id}/create',[restockDetailController::class,'create']);

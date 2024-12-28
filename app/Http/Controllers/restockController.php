@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\stuff;
 use App\Models\restock;
 use App\Models\restock_detail;
+use App\Models\User;
 use Egulias\EmailValidator\Result\Reason\DetailedReason;
-
+// use Illuminate\Support\Facades\Log;
 class restockController extends Controller
 {
     /**
@@ -15,7 +16,10 @@ class restockController extends Controller
      */
     public function index()
     {
-    return view("employeeLayout.restockLayout.index");
+    $restocks = restock::with('user')->get();
+    $restock_details = restock_detail::with('stuff')->get();
+    
+    return view("employeeLayout.restockLayout.index",compact("restocks", "restock_details"));
     }
 
     /**
@@ -99,6 +103,28 @@ class restockController extends Controller
             ]);
         }else{
             return response()->json(['message' => 'not found']);
+        }
+    }
+    public function show_detail($restock_id){
+        $restock_detail = restock_detail::where('restock_id', $restock_id)->with('stuff','restock')->get();
+        // Log::info($restock_id);
+
+        // Log::info($restock_detail);
+        return response()->json($restock_detail);
+    }
+    public function approve_stack(Request $request, $id){
+        $approvalvalue= $request->input('approvalValue');
+        $restock_id = $request->input('restock_id');
+        $restock = restock::find($restock_id);
+
+        if ($restock){
+            $restock->status = 1;
+            $restock->save();
+            // return response()->json(['message' => 'Stock approved successfully']);
+            return redirect()->route('home');
+        }
+        else{
+            return response()->json(['message'=>$approvalvalue]);
         }
     }
 }
